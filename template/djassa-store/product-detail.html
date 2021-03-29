@@ -1,0 +1,567 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<title>Achats et trocs | DJASSA-STORE</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.png' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/linearicons-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/MagnificPopup/magnific-popup.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mycss.css' %}">
+<!--===============================================================================================-->
+ <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+</head>
+<body class="animsition">
+	
+	<!-- Header -->
+	 {% include 'djassa-store/header.html' with val=count %}
+		
+
+	<!-- Product Detail --><br>
+	<section class="sec-product-detail bg0 p-t-65 p-b-60">
+		<div class="container">
+			<div class="row">
+				<div  class="col-md-6 col-lg-7 p-b-30">
+					<div class="p-l-25 p-r-30 p-lr-0-lg">
+						<div class="wrap-slick3 flex-sb flex-w">
+							<div class="wrap-slick3-dots"></div>
+							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+							<div class="slick3 gallery-lb" onchange="changeCouleur()">
+                            {% for tel in phone%}
+								<div class="item-slick3" data-thumb="../media/{{tel.image}}" onchange="changeCouleur()">
+									<div class="wrap-pic-w pos-relative">
+										<img src="../media/{{tel.image}} " style="width:450px;height:470px;display: block;margin-left: auto;margin-right: auto;" alt="IMG-PRODUCT" onchange="changeCouleur()">
+                                        <p id="couleur" style="display:none;">{{tel.couleur}}</p>
+										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="../media/{{tel.image}}" onchange="changeCouleur()">
+											<i class="fa fa-expand"></i>
+										</a>
+									</div>
+								</div>
+                                
+                            {% endfor %}
+                            
+                            
+                            
+							</div>
+						</div>
+					</div>
+				</div>
+                <ul id="data-color" style='display:none;'>
+                                {%for tel in phone%}
+                                    <li>{{tel.couleur}}</li>
+                                {% endfor %}
+                </ul>
+					
+				<div class="col-md-6 col-lg-5 p-b-30">
+					<div class="p-r-50 p-t-5 p-lr-0-lg">
+						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
+							{{modele.name}}
+						</h4>
+
+						<span id="price" class="mtext-106 cl2">
+							Prix
+						</span>
+						
+						<!-- form  -->
+                        
+                            <div class="p-t-33">
+
+                                    <div class="flex-w flex-r-m p-b-10">
+                                        <div class="size-203 flex-c-m respon6">
+                                            Capacité
+                                        </div>
+
+                                        <div class="size-204 respon6-next">
+                                            <div class="rs1-select2 bor8 bg0">
+                                                <select id="capacite" class="js-select2" name="capacite" onchange="changePrice()">
+                                                    <option>Choisissez une option</option>
+                                                    
+                                                    {% for cap in capacite %}
+                                                        
+                                                            <option>{{cap.capacite}}</option>
+                                                        
+                                                    {% endfor %}
+                                                </select>
+                                                <div class="dropDownSelect2"></div>
+                                            <ul style="display:none;" id="data">
+                                                            {% for price in prix %}
+                                                                <li>{{price.capacite}}|{{price.prix}} </li>
+                                                            {% endfor %}
+                                            </ul>
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+
+
+                                <div class="flex-w flex-r-m p-b-10">
+                                    <div class="p-0 size-204 flex-w flex-m respon6-next">
+                                        <div class="row">
+                                            <div class="col-6">
+                                            <form method="POST" name="form1" action="" id="form1" >
+                                                {% csrf_token %}
+                                                <input type="number" name="modele" value={{modele.id}} style="display:none;"></input>
+                                                <input id="color-input" type="text" name="couleur" value="" style="display:none;"></input>
+                                                <input id="capacite1" type="text" name="capacite" value="" required pattern="64 Go|128 Go|256 Go|512 Go" style="display:none;"></input>
+                                                <input id="type-action" type="text" name="action" value="ACHETER" style="display:none;"></input>
+                                                <button type="submit" id="acheter" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                                
+                                                    ACHETER
+                                                </button>
+                                            </form>
+                                            </div>
+                                            <div class="col-6">
+                                            
+                                                <button id="troc" type="bouton" class="flex-c-m stext-101 cl0 size-101 bg2 bor1 hov-btn3 p-lr-15 trans-04 js-addcart-detail text-light" >
+                                                        TROQUER
+                                                </button>
+                                               
+                                            </div>
+                                            <br><br>
+                                        </div >
+											<form method="POST">
+											{% csrf_token %}
+                                            <div id="question" class="box p-5 visuallyhidden hidden">
+                                                <div class="row d-flex justify-content-around">
+                                                 <div class="col-12 rs1-select2 bor8 bg0">
+                                                        <select class="js-select2" name="capacite">
+                    
+                                                             <option ><p style="background-color: black;color: white;opacity: 0.3;">zertyuioftghjklrtyuiuhyu</p></option>
+                                                            {% for cap in all_modele %}
+                                                                
+                                                                    <option>{{cap.name}}</option>
+                                                                
+                                                            {% endfor %}
+                                                        </select>
+                                                        <div class="dropDownSelect2"></div>
+                                                       
+                                                    </div>
+                                                 </div>
+                                        
+                                                </div>
+                                                
+                                            </div>
+                                            <div id="question1" class="box p-5 visuallyhidden hidden">
+                                                 <div class="row d-flex justify-content-around">
+												 <div class="col-12">
+												 	<h4>Quel modèle avez-vous ?</h4>
+													<p style="font-size:12px">Sur votre iPhone, allez dans Réglages > Votre nom.
+													Faites défiler vers le bas pour afficher le modèle.
+													Sur les autres smartphones, allez dans Réglages > Informations. </p>
+												 </div>
+												 <div class="col-12">
+                                                    <div class="rs1-select2 bor8 bg0">
+                                                        <select id="modele_cap" class="js-select2" name="capacite" onchange="ModeleCap()">
+															<option selected="selected" >Sélectionner</option>
+                                                            {% for cap in all_modele %}
+                                                                
+                                                                    <option>{{cap.name}} - jusqu'à {{cap.troc}} Fr CFA</option>
+                                                                
+                                                            {% endfor %}
+                                                        </select>
+                                                        <div class="dropDownSelect2"></div>
+                                                       
+                                                    </div>
+													<small id="emailHelp" class="form-text text-muted">NB: si votre modèle ne s'y trouve pas 
+													c'est que le troc n'est pas possible.</small>
+												</div>
+                                                        
+                                                </div>
+
+                                               
+                                            </div>
+
+											<div id="question2" class="box p-5 visuallyhidden hidden">
+                                                 <div class="row d-flex justify-content-around">
+												 <div class="col-12">
+												 	<h4>Quelle est la capacité ?</h4>
+													<p style="font-size:12px">
+													Sur votre iPhone, allez dans Réglages > Général > Informations. Sur les autres smartphones,
+													allez dans Réglages > Stockage.</p>
+												 </div>
+												 <div class="col-12">
+                                                    <div class="rs1-select2 bor8 bg0">
+                                                        <select id="intact" class="js-select2" name="capacite" onchange="Intact()">
+															<option selected="selected">Sélectionner</option>
+                                                            {% for cap in capacite %}
+                                                                
+                                                                    <option>{{cap.capacite}}</option>
+                                                                
+                                                            {% endfor %}
+                                                        </select>
+                                                        <div class="dropDownSelect2"></div>
+                                                       
+                                                    </div>
+													<small id="emailHelp" class="form-text text-muted">NB: si votre modèle ne s'y trouve pas 
+													c'est que le troc n'est pas possible.</small>
+												</div>
+                                                        
+                                                </div>
+
+                                               
+                                            </div>
+											<div id="question3" class="box p-5 isuallyhidden hidden">
+                                                 <div class="row d-flex justify-content-around">
+												 <div class="col-12">
+												 	<h4>L’iPhone est-il en bon état ?</h4>
+													<p style="font-size:12px">
+													Répondez oui si toutes ces conditions sont réunies :</p><br>
+													<ul>
+														<li><i class="fa fa-arrow-right" aria-hidden="true"></i> Il s’allume et fonctionne normalement</li>
+														<li><i class="fa fa-arrow-right" aria-hidden="true"></i> Tous les boutons fonctionnent</li>
+														<li><i class="fa fa-arrow-right" aria-hidden="true"></i> L’appareil photo et la caméra fonctionnent</li>
+														<li><i class="fa fa-arrow-right" aria-hidden="true"></i> Le boîtier est exempt de bosses et d’éraflures</li>
+														<li><i class="fa fa-arrow-right" aria-hidden="true"></i> L’écran tactile et le dos en verre ne présentent aucune détérioration</li>
+													</ul>
+												 </div>
+                                                    <div class="col-6"><button type="button" id="oui1" class="p-5 border border-dark btn btn-light" onclick="Q1_oui()">OUI</button></div>
+													<div class="col-6"><button type="button" id="non1" class="p-5 border border-dark btn btn-light" onclick="Q1_non()">NON</button></div>
+                                                    <input id="etat" name="etat" value="" style="display:none"/>
+                                                </div>
+
+                                               
+                                            </div>
+											<div id="question4" class="box p-5 isuallyhidden hidden">
+                                                 <div class="row d-flex justify-content-around">
+												 <div class="col-12">
+												 	<h4>S’allume‑t‑il et tous les boutons fonctionnent‑ils ?</h4>
+													
+												 </div>
+                                                    <div class="col-6"><button type="button" id="oui2" class="p-5 border border-dark btn btn-light" onclick="Q2_oui()">OUI</button></div>
+													<div class="col-6"><button type="button" id="non2" class="p-5 border border-dark btn btn-light" onclick="Q2_non()">NON</button></div>
+                                                    <input id="allum_bouton" name="allum_bouton" value="" style="display:none"/>
+                                                </div>
+
+                                               
+                                            </div>
+											<div id="question5" class="box p-5 isuallyhidden hidden">
+                                                 <div class="row d-flex justify-content-around">
+												 <div class="col-12">
+												 	<h4>Le boîtier de l’iPhone est‑il en bon état ?</h4>
+													<p style="font-size:12px">
+													Répondez oui si toutes ces conditions sont réunies :</p><br>
+													<ul>
+														<li><i class="fa fa-arrow-right" aria-hidden="true"></i> Le boîtier ne présente ni fissure ni éraflure importante</li>
+														<li><i class="fa fa-arrow-right" aria-hidden="true"></i> Si le dos est en verre, celui‑ci n’est pas brisé</li>
+													</ul>
+												 </div>
+                                                    <div class="col-6"><button type="button" id="oui3" class="p-5 border border-dark btn btn-light" onclick="Q3_oui()">OUI</button></div>
+													<div class="col-6"><button type="button" id="non3" class="p-5 border border-dark btn btn-light" onclick="Q3_non()">NON</button></div>
+                                                    <input id="boitier" name="boitier" value="" style="display:none"/>
+                                                </div>
+
+                                               
+                                            </div>
+											<div id="question6" class="box p-5 isuallyhidden hidden">
+                                                 <div class="row d-flex justify-content-around">
+												 <div class="col-12">
+												 	<h4>L’écran tactile, l’appareil photo et la caméra sont‑ils en bon état ?</h4>
+													<p style="font-size:12px">
+													Répondez oui si toutes ces conditions sont réunies :</p><br>
+													<ul>
+														<li><i class="fa fa-arrow-right" aria-hidden="true"></i> L’écran tactile ne présente ni fissure, ni éraflure</li>
+														<li><i class="fa fa-arrow-right" aria-hidden="true"></i> L’appareil photo et la caméra fonctionnent</li>
+													</ul>
+												 </div>
+                                                    <div class="col-6"><button type="button" id="oui4" class="p-5 border border-dark btn btn-light" onclick="Q4_oui()">OUI</button></div>
+													<div class="col-6"><button type="button" id="non4" class="p-5 border border-dark btn btn-light" onclick="Q4_non()">NON</button></div>
+                                                    <input id="tactile" name="tactile" value="" style="display:none"/>
+                                                </div>
+
+                                               
+                                            </div>
+											<div id="serie" class="box p-5 isuallyhidden hidden">
+                                                 <div class="row d-flex justify-content-around">
+												 <div class="col-12">
+												 	<h4>La valeur de votre iPhone peut aller jusqu’à XXX €. Veuillez saisir 
+													 votre numéro IMEI pour confirmer votre demande.</h4>
+													<p style="font-size:12px">
+													Allez dans Réglages > Général > Informations.</p><br>
+													
+												 </div>
+                                                    
+												<div class="bor8 m-b-20 how-pos4-parent">
+													<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" name="imei" type="text" pattern="\d{2}\s\d{6}\s\d{6}\s\d{1}" required placeholder="XX XXXXXX XXXXXX X">
+												
+												</div>
+												<p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Attention le montant indiqué est à titre indicatif.
+												En cas de fausses informations renseignées, le montant diminuera </p>
+                                                </div>
+												
+                                               <button id="troc" type="submit" class="flex-c-m stext-101 cl0 size-101 bg2 bor1 hov-btn3 p-lr-15 trans-04 js-addcart-detail text-light" >
+                                                        ENVOYER
+                                                </button>
+                                            </div>
+											</form>
+                                    </div>
+                                </div>	
+                            </div>
+                        
+					</div>
+
+
+                
+
+			<div class="bor10 m-t-50 p-t-43 p-b-40">
+				<!-- Tab01 -->
+				<div class="tab01">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item p-b-10">
+							<a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
+						</li>
+
+						<li class="nav-item p-b-10">
+							<a class="nav-link" data-toggle="tab" href="#information" role="tab">Informations supplémentaires</a>
+						</li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content p-t-43">
+						<!-- - -->
+						<div class="tab-pane fade show active" id="description" role="tabpanel">
+							<div class="how-pos2 p-lr-15-md">
+								<p class="stext-102 cl6">
+									Aenean sit amet gravida nisi. Nam fermentum est felis, quis feugiat nunc fringilla sit amet. Ut in blandit ipsum. Quisque luctus dui at ante aliquet, in hendrerit lectus interdum. Morbi elementum sapien rhoncus pretium maximus. Nulla lectus enim, cursus et elementum sed, sodales vitae eros. Ut ex quam, porta consequat interdum in, faucibus eu velit. Quisque rhoncus ex ac libero varius molestie. Aenean tempor sit amet orci nec iaculis. Cras sit amet nulla libero. Curabitur dignissim, nunc nec laoreet consequat, purus nunc porta lacus, vel efficitur tellus augue in ipsum. Cras in arcu sed metus rutrum iaculis. Nulla non tempor erat. Duis in egestas nunc.
+								</p>
+							</div>
+						</div>
+
+						<!-- - -->
+						<div class="tab-pane fade" id="information" role="tabpanel">
+							<div class="row">
+								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+									<ul class="p-lr-28 p-lr-15-sm">
+										<li class="flex-w flex-t p-b-7">
+											<span class="stext-102 cl3 size-205">
+												Marque
+											</span>
+
+											<span class="stext-102 cl6 size-206">
+												Iphone
+											</span>
+										</li>
+
+										<li class="flex-w flex-t p-b-7">
+											<span class="stext-102 cl3 size-205">
+												Modèle
+											</span>
+
+											<span class="stext-102 cl6 size-206">
+												Iphone 12
+											</span>
+										</li>
+
+										<li class="flex-w flex-t p-b-7">
+											<span class="stext-102 cl3 size-205">
+												Couleur
+											</span>
+
+											<span class="stext-102 cl6 size-206">
+												Noir, Bleu, Vert, Rouge, Blanc
+											</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
+			<span class="stext-107 cl6 p-lr-25">
+				NOM: IPHONE 12
+			</span>
+
+			<span class="stext-107 cl6 p-lr-25">
+				Marque : Iphone
+			</span>
+		</div>
+	</section>
+
+
+	<!-- Related Products -->
+	<section class="sec-relate-product bg0 p-t-45 p-b-105">
+		<div class="container">
+			<div class="p-b-45">
+				<h3 class="ltext-106 cl5 txt-center">
+					Produits similaires
+				</h3>
+			</div>
+
+			<!-- Slide2 -->
+			<div class="wrap-slick2">
+				<div class="slick2">
+					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+						<!-- Block2 -->
+						<div class="block2">
+						<div class="block2-pic hov-img0">
+                        <img src="images/phone/iphone12_.jpg" alt="IMG-PRODUCT">
+
+                        <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+								Voir
+							</a>
+                    </div>
+
+                    <div class="block2-txt flex-w flex-t p-t-14">
+                        <div class="block2-txt-child1 flex-col-l ">
+                            <a href="product-detail.htm" class="stext-101 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									IPHONE 12
+								</a>
+
+                            <span class="stext-201 cl3">
+									800 000 FCFA
+								</span>
+                        </div>
+
+                        <div class="block2-txt-child2 flex-r p-t-3">
+                            <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                                <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+                            </a>
+                        </div>
+                    </div>
+						</div>
+					</div>
+
+					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+						<!-- Block2 -->
+						<div class="block2">
+						<div class="block2-pic hov-img0">
+                        <img src="images/phone/iphone12_.jpg" alt="IMG-PRODUCT">
+
+                        <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+								Voir
+							</a>
+                    </div>
+
+                    <div class="block2-txt flex-w flex-t p-t-14">
+                        <div class="block2-txt-child1 flex-col-l ">
+                            <a href="product-detail.htm" class="stext-101 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									IPHONE 12
+								</a>
+
+                            <span class="stext-201 cl3">
+									800 000 FCFA
+								</span>
+                        </div>
+
+                        <div class="block2-txt-child2 flex-r p-t-3">
+                            <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                                <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+                            </a>
+                        </div>
+                    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+		
+
+	<!-- Footer -->
+    {% include 'djassa-store/footer.html' %}
+
+<!--===============================================================================================-->	
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'animatedModal/animatedModal.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/slick/slick.min.js'%}"></script>
+	<script src="{% static 'js/slick-custom.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/parallax100/parallax100.js' %}"></script>
+	<script>
+        $('.parallax100').parallax100();
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/MagnificPopup/jquery.magnific-popup.min.js' %}"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+		        delegate: 'a', // the selector for gallery item
+		        type: 'image',
+		        gallery: {
+		        	enabled:true
+		        },
+		        mainClass: 'mfp-fade'
+		    });
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/isotope/isotope.pkgd.min.js' %}"></script>
+<!--===============================================================================================-->
+	
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			$(this).css('position','relative');
+			$(this).css('overflow','hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed: 1,
+				scrollingThreshold: 1000,
+				wheelPropagation: false,
+			});
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/another.js' %}">
+        
+    </script>
+</body>
+</html>

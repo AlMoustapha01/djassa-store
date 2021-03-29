@@ -1,0 +1,268 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<title>Panier | DJASSA-STORE</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.png' %}"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/linearicons-v1.0.0/icon-font.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <!--===============================================================================================-->
+</head>
+<body class="animsition">
+	
+	<!-- Header -->
+	 {% include 'djassa-store/header.html' with val=count active="panier"%}
+		
+
+	<!-- Shoping Cart --><br>
+	<div class="p-t-75 p-b-85">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							{% for types in type%}
+							<h2>{{types.type}}</h2>
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1" style="text-align: center; vertical-align: middle;">Produit</th>
+									<th class="column-2" style="text-align: center; vertical-align: middle;"></th>
+									<th class="column-2" style="text-align: center; vertical-align: middle;">Capacité</th>
+									<th class="column-3" style="text-align: center; vertical-align: middle;">  Prix</th>
+									<th class="column-4" style="text-align: center; vertical-align: middle;">Quantité</th>
+									<th class="column-5" style="text-align: center; vertical-align: middle;">Total</th>
+									<th class="column-6" style="text-align: center; vertical-align: middle;">  Status    </th>
+								</tr>
+								{% for elt in panier%}
+								<tr class="table_row" style="text-align: center; vertical-align: middle;">
+									<td class="column-1">
+										<div class="how-itemcart1">
+											<img src="media/{{elt.photo}}" alt="IMG">
+										</div>
+									</td>
+									<td class="column-2" style="text-align: center; vertical-align: middle;">{{elt.modele}}</td>
+									<td class="column-3" style="text-align: center; vertical-align: middle;">{{elt.capacite}}</td>
+									<td class="column-4" style="text-align: center; vertical-align: middle;">{{elt.prix}} FCFA</td>
+									<td class="column-5" style="text-align: center; vertical-align: middle;">
+										<div class="wrap-num-product flex-w m-l-auto m-r-0">
+											<div id="moins" class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-minus"></i>
+											</div>
+
+											<input id="quantite" class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="{{elt.quantite}}" required pattern="[1-9]+">
+
+											<div id="plus" class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-plus"></i>
+											</div>
+										</div>
+									</td>
+									<td id="total" class="column-6" style="text-align: center; vertical-align: middle;">{{elt.total}}</td>
+									{% if elt.status%}
+									<td class="column-6" >
+									<form method="POST" action="">
+											{% csrf_token %}
+											<input type="number" value="{{elt.id}}" style="display:none;" name="panier">
+											<input type="bool" value="{{elt.status}}" style="display:none;" name="status">
+											<input id="quant" type="number" value="{{elt.quantite}}" style="display:none;" name="quant">
+											<button type="submit" class="btn btn-success">en cours</button>
+									</form>
+									</td>
+									{% else %}
+									<td class="column-6" >
+									<form method="POST" action="">
+										{% csrf_token %}
+										<input type="number" value="{{elt.id}}" style="display:none;" name="panier">
+										<input type="bool" style="display:none;" value="{{elt.status}}" name="status">
+										<input id="quant" type="number" value="{{elt.quantite}}" style="display:none;" name="quant">
+										<button type="submit" class="btn btn-danger">commander</button>
+									</form>
+									</td>
+									{% endif %}
+									<p id="total" style="display:none;">{{elt.pchiffre}}</p>
+								</tr>
+								{% endfor %}
+								
+							</table>
+							{% endfor %}
+						</div>
+
+						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+								Mettre à jour
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+						<div class="flex-w flex-t p-t-27 p-b-33">
+							<div class="size-208">
+								<span class="mtext-101 cl2">
+									Total:
+								</span>
+							</div>
+
+							<div class="size-209 p-t-1">
+								<span class="mtext-110 cl2">
+									{{total}} FCFA
+								</span>
+							</div>
+						</div>
+						<button class="flex-c-m stext-101 cl0 size-116 bg1 bor1 hov-btn1 p-lr-15 trans-04 pointer">
+							FINALISER
+						</button>
+					</div><br>
+					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+						<div class="flex-w flex-t p-t-27 p-b-33">
+							<div class="size-209">
+								<span class="mtext-101 cl2">
+									ACHAT EN COURS:
+								</span>
+							</div>
+
+							<div class="size-208 p-t-1">
+								<span class="mtext-110 cl2">
+									{{en_cours}}
+								</span>
+							</div>
+						</div>
+						<div class="flex-w flex-t p-t-27 p-b-33">
+							<div class="size-209">
+								<span class="mtext-101 cl2">
+									TROC EN COURS:
+								</span>
+							</div>
+
+							<div class="size-208 p-t-1">
+								<span class="mtext-110 cl2">
+									0
+								</span>
+							</div>
+						</div>
+					</div>
+					
+			</div>
+		</div>
+	</div>
+		
+	
+		
+
+	<!-- Footer -->
+	{% include 'djassa-store/footer.html' %}
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
+<!--===============================================================================================-->	
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/MagnificPopup/jquery.magnific-popup.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			$(this).css('position','relative');
+			$(this).css('overflow','hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed: 1,
+				scrollingThreshold: 1000,
+				wheelPropagation: false,
+			});
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'js/main.js' %}"></script>
+	<script>
+	function Price(){
+		plus = document.querySelectorAll('div#plus')
+		moins = document.querySelectorAll('div#moins')
+		let i =0
+		console.log(Array.from(plus))
+		
+		Array.from(plus).map( (pl,index)=>{
+			console.log(index)
+			pl.addEventListener("click",()=>{
+			console.log(index)
+			quantite= document.querySelectorAll('input#quantite')[index]
+			
+			console.log(document.querySelectorAll('input#quantite')[index])
+			inp_quant=document.querySelectorAll('input#quant')[index]
+			inp_quant.value= quantite.value
+			total= document.querySelectorAll('td#total')[index]
+			console.log(total)
+			ptotal= document.querySelectorAll('p#total')[index]
+			value = parseInt(ptotal.innerText)*parseInt(quantite.value)
+			console.log(value)
+			total.innerText= value
+		})
+		}
+
+		)
+		Array.from(moins).map( (mo,index)=>{
+			console.log(index)
+			mo.addEventListener("click",()=>{
+			console.log(index)
+			quantite= document.querySelectorAll('input#quantite')[index]
+			inp_quant=document.querySelectorAll('input#quant')[index]
+			console.log(document.querySelectorAll('input#quant'))
+			inp_quant.value= quantite.value
+			total= document.querySelectorAll('td#total')[index]
+			console.log(total)
+			ptotal= document.querySelectorAll('p#total')[index]
+			value = parseInt(ptotal.innerText)*parseInt(quantite.value)
+			console.log(value)
+			total.innerText= value
+			})
+		})
+	}
+	Price();
+	</script>
+
+</body>
+</html>

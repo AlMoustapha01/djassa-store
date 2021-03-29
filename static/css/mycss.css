@@ -1,0 +1,19 @@
+.box {
+    transition: all 0.5s linear;
+    display: block;
+}
+  
+.hidden {
+    display: none;
+}
+  
+.visuallyhidden {
+    opacity: 0;
+}
+
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%
+}

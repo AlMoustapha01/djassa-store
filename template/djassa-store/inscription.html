@@ -1,0 +1,295 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Inscription | DJASSA-STORE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.png' %}"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/linearicons-v1.0.0/icon-font.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <!--===============================================================================================-->
+</head>
+
+<body class="animsition">
+
+    <!-- Header -->
+     {% include 'djassa-store/header.html' with val=count %}
+
+
+    <!-- Title page -->
+   <br><br> <section class="bg-img1 txt-center p-lr-15 p-tb-92">
+        <h2 class="ltext-105 cl0 txt-center">
+            INSCRIPTION
+        </h2>
+    </section>
+
+
+    <!-- Content page -->
+    <section class="bg0 p-t-23 p-b-10">
+        <div class="container">
+            <div class="flex-w flex-tr">
+                <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+                    <form method="POST">
+                        <h4 class="mtext-105 cl2 txt-center p-b-30">
+                            Inscription
+                        </h4>
+                        {% csrf_token %}
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="name" placeholder="Votre nom">
+                        </div>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="surname" placeholder="Votre prénom">
+                        </div>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email" placeholder="Votre adresse email">
+                        </div>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="telephone" placeholder="Votre numéro de téléphone">
+                        </div>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="password" placeholder="Votre mot de passe">
+                        </div>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="conf_password" placeholder="Confirmer votre mot de passe">
+                        </div>
+
+                        <button class="flex-c-m stext-101 cl0 size-121 bg2 bor1 hov-btn1 p-lr-15 trans-04 pointer">
+							INSCRIPTION
+						</button>
+                    </form>
+                </div>
+
+                <div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md">
+                    <div class="flex-w w-full p-b-42">
+
+                        <div class="size-212 p-t-2">
+
+                            <p class="stext-115 cl6 size-213 p-t-18">
+                                Vous avez déja un compte ? <a href="/login">Connectez-vous !</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="bg3 p-t-75 p-b-32">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-lg-4 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        Marques
+                    </h4>
+
+                    <ul>
+                        <li class="p-b-10">
+                            <a href="achat.htm" class="stext-102 cl11 hov-cl1 trans-04">
+								Iphone
+							</a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="achat.htm" class="stext-102 cl11 hov-cl1 trans-04">
+								Samsung
+							</a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="achat.htm" class="stext-102 cl11 hov-cl1 trans-04">
+								Huawei
+							</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        Services
+                    </h4>
+
+                    <ul>
+                        <li class="p-b-10">
+                            <a href="achat.htm" class="stext-102 cl11 hov-cl1 trans-04">
+								Achat
+							</a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="achat.htm" class="stext-102 cl11 hov-cl1 trans-04">
+								Troc 
+							</a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="reparation.htm" class="stext-102 cl11 hov-cl1 trans-04">
+								Réparation
+							</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        SUGGESTIONS
+                    </h4>
+
+                    <p class="stext-102 cl11 hov-cl1 trans-04">
+                        Pour toute suggestion, nous sommes situés au Black Market d'Adjamé ou vous pouvez nous contacter au +225 00 00 00 00
+                    </p>
+
+                    <div class="p-t-27">
+                        <a href="#" class="fs-18 stext-102 cl11 hov-cl1 trans-04">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+
+                        <a href="#" class="fs-18 stext-102 cl11 hov-cl1 trans-04">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+
+                        <a href="#" class="fs-18 stext-102 cl11 hov-cl1 trans-04">
+                            <i class="fa fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-t-40">
+
+                <p class="stext-102 cl11 hov-cl1 trans-04 txt-center">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script> DJASSA-STORE | CREATION ET DEVELOPPEMENT : <b><a href = "#">Marra</a></b></a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Back to top -->
+    <div class="btn-back-to-top" id="myBtn">
+        <span class="symbol-btn-back-to-top">
+			<i class="zmdi zmdi-chevron-up"></i>
+		</span>
+    </div>
+
+     <!--===============================================================================================-->
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <!--===============================================================================================-->
+    <script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+    <!--===============================================================================================-->
+    <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <!--===============================================================================================-->
+    <script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+    <script>
+        $(".js-select2").each(function() {
+            $(this).select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $(this).next('.dropDownSelect2')
+            });
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
+    <script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
+    <!--===============================================================================================-->
+    <script src="{% static 'vendor/slick/slick.min.js' %}"></script>
+    <script src="{% static 'js/slick-custom.js' %}"></script>
+    <!--===============================================================================================-->
+    <script src="{% static 'vendor/parallax100/parallax100.js'%}"></script>
+    <script>
+        $('.parallax100').parallax100();
+    </script>
+    <!--===============================================================================================-->
+    <script src="{% static 'vendor/MagnificPopup/jquery.magnific-popup.min.js' %}"></script>
+    <script>
+        $('.gallery-lb').each(function() { // the containers for all your galleries
+            $(this).magnificPopup({
+                delegate: 'a', // the selector for gallery item
+                type: 'image',
+                gallery: {
+                    enabled: true
+                },
+                mainClass: 'mfp-fade'
+            });
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="{% static 'vendor/isotope/isotope.pkgd.min.js' %}"></script>
+    <!--===============================================================================================-->
+    <!--===============================================================================================-->
+    <script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.min.js '%}"></script>
+    <script>
+        $('.js-pscroll').each(function() {
+            $(this).css('position', 'relative');
+            $(this).css('overflow', 'hidden');
+            var ps = new PerfectScrollbar(this, {
+                wheelSpeed: 1,
+                scrollingThreshold: 1000,
+                wheelPropagation: false,
+            });
+
+            $(window).on('resize', function() {
+                ps.update();
+            })
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    {% if errorCommon %}
+        <script>
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        position:'center',
+        text: 'Mot de passe trop commun ou similaire à l\'email.',
+        })
+        </script>
+    {% endif %}
+    {% if errorConf %}
+        <script>
+        Swal.fire({
+        icon: 'error',
+        position:'center',
+        title: 'Oops...',
+        text: 'La confirmation de mots de passe a échoué.',
+        })
+        </script>
+    {% endif %}
+</body>
+
+</html>
