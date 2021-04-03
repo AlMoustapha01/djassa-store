@@ -5,6 +5,7 @@ from achat.models.marque_model import Marque
 from achat.models.price_phone_model import PricePhone
 from achat.models.color_phone_model import ColorPhone
 from achat.models.panier_model import Panier
+from achat.models.troc_model import Troc
 from rest_framework.response import Response
 from rest_framework import mixins,views
 from rest_framework import generics
@@ -29,6 +30,7 @@ def achat_view(request):
     iphone_7 = list(ModelePhone.objects.filter(name__contains='7'))
     iphone_6 = list(ModelePhone.objects.filter(name__contains='6'))
     print('{} {} {} {}'.format(marque,iphone_11,iphone_8,iphone_7))
+    count= None
     if request.user.is_authenticated:
         panier = Panier.objects.filter(id_users=request.user)
         count = len(panier)
@@ -44,12 +46,14 @@ def detail_view(request,id_modele):
     print(capacity)
     modele = ModelePhone.objects.get(id=id_modele)
     All_modele = list(ModelePhone.objects.all())
+    count=None
     if request.user.is_authenticated:
         panier = Panier.objects.filter(id_users=request.user)
         count = len(panier)
     if request.POST:
         if request.user.is_authenticated:
-            panier = Panier()
+            paniers = Panier()
+            troc = Troc()
             modeles= request.POST['modele']
             couleur = request.POST['couleur']
             capacite = request.POST['capacite']
@@ -64,23 +68,37 @@ def detail_view(request,id_modele):
             count = len(panier)
             if request.POST['action'] == "ACHETER":
                 type= "ACHAT"
-                panier.id_users= request.user
-                panier.id_price_phone = prices
-                panier.quantite= quantite
-                panier.total= total
-                panier.type = type
-                panier.status = status
-                panier.save()
+                paniers.id_users= request.user
+                paniers.id_price_phone = prices
+                paniers.quantite= quantite
+                paniers.total= total
+                paniers.type = type
+                paniers.status = status
+                paniers.save()
                 return redirect("/panier")
             else:
                 type= "TROC"
-                panier.id_users= request.user
-                panier.id_price_phone = prices
-                panier.quantite= quantite
-                panier.total= total
-                panier.type = type
-                panier.status = status
-                panier.save()
+                paniers.id_users= request.user
+                paniers.id_price_phone = prices
+                paniers.quantite= quantite
+                paniers.total= total
+                paniers.type = type
+                paniers.status = status
+                paniers.save()
+                troc.panier = paniers
+                troc.etat = request.POST['etat']
+                troc.capacite= request.POST['cap']
+                troc.phone = request.POST['model'].split('-')[0]
+                if request.POST['etat']=="OUI":
+                    troc.imei = request.POST['imei']
+                    troc.save()
+                else:
+                    
+                    troc.allum_bouton = request.POST['allum_bouton']
+                    troc.boitier = request.POST['boitier']
+                    troc.ecran_camera = request.POST['ecran_camera']
+                    troc.imei = request.POST['imei']
+                    troc.save()
                 return redirect("/panier")
 
         else:

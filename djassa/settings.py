@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'djassa.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        #'NAME': 'djassa',
-        'NAME': 'djassa-store',
-        'USER': 'root',
-        'PASSWORD': '',
+        'NAME': 'djassa',
+        #'NAME': 'djassa-store',
+        'USER': 'doumbia',
+        'PASSWORD': '12345678',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

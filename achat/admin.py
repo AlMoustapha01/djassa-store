@@ -6,6 +6,7 @@ from .models.marque_model import *
 from .models.panier_model import *
 from .models.color_phone_model import ColorPhone
 from .models.price_phone_model import PricePhone
+from .models.troc_model import Troc
 from .models.client_model import *
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
@@ -27,6 +28,7 @@ admin.site.register(Marque)
 admin.site.register(Panier)
 admin.site.register(ColorPhone)
 admin.site.register(PricePhone)
+admin.site.register(Troc)
 
 
 # Re-register UserAdmin

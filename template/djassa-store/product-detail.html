@@ -148,11 +148,15 @@
                                             <br><br>
                                         </div >
 											<form method="POST">
+												<input type="number" name="modele" value={{modele.id}} style="display:none;"></input>
+                                                <input id="color-input2" type="text" name="couleur" value="" style="display:none;"></input>
+                                                <input id="capacite2" type="text" name="capacite" value="" required pattern="64 Go|128 Go|256 Go|512 Go" ></input>
+                                                <input id="type-action" type="text" name="action" value="TROQUER" style="display:none;"></input>
 											{% csrf_token %}
                                             <div id="question" class="box p-5 visuallyhidden hidden">
                                                 <div class="row d-flex justify-content-around">
                                                  <div class="col-12 rs1-select2 bor8 bg0">
-                                                        <select class="js-select2" name="capacite">
+                                                        <select class="js-select2">
                     
                                                              <option ><p style="background-color: black;color: white;opacity: 0.3;">zertyuioftghjklrtyuiuhyu</p></option>
                                                             {% for cap in all_modele %}
@@ -179,7 +183,7 @@
 												 </div>
 												 <div class="col-12">
                                                     <div class="rs1-select2 bor8 bg0">
-                                                        <select id="modele_cap" class="js-select2" name="capacite" onchange="ModeleCap()">
+                                                        <select id="modele_cap" class="js-select2" name="model" onchange="ModeleCap()">
 															<option selected="selected" >Sélectionner</option>
                                                             {% for cap in all_modele %}
                                                                 
@@ -209,7 +213,7 @@
 												 </div>
 												 <div class="col-12">
                                                     <div class="rs1-select2 bor8 bg0">
-                                                        <select id="intact" class="js-select2" name="capacite" onchange="Intact()">
+                                                        <select id="intact" class="js-select2" name="cap" onchange="Intact()">
 															<option selected="selected">Sélectionner</option>
                                                             {% for cap in capacite %}
                                                                 
@@ -293,7 +297,7 @@
 												 </div>
                                                     <div class="col-6"><button type="button" id="oui4" class="p-5 border border-dark btn btn-light" onclick="Q4_oui()">OUI</button></div>
 													<div class="col-6"><button type="button" id="non4" class="p-5 border border-dark btn btn-light" onclick="Q4_non()">NON</button></div>
-                                                    <input id="tactile" name="tactile" value="" style="display:none"/>
+                                                    <input id="tactile" name="ecran_camera" value="" style="display:none"/>
                                                 </div>
 
                                                

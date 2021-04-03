@@ -22,17 +22,20 @@ async function changePrice(){
     //console.log(data.length)
     var i=0;
     var input_cap1 = document.querySelector('input#capacite1')
+    var input_cap2 = document.querySelector('input#capacite2')
     for(i=0;i<data.length;i++){
         var table =data[i].innerText.split('|');
         //console.log(table)
         if(capacite == table[0]){
             price.innerText = table[1]+' FCFA';
             input_cap1.value=table[0]
-            console.log(capacite)
+            input_cap2.value=table[0]
+            console.log("input 2 ",input_cap2.value)
         }else{
             
-            console.log(capacite)
             input_cap1.value=capacite
+            input_cap2.value=capacite
+            console.log("input 2 ",input_cap2.value)
             
         }
     }
@@ -44,8 +47,10 @@ function color(){
     var doc = document.querySelector('ul.slick3-dots');
 
     var input_couleur = document.getElementById('color-input');
+    var input_couleur2 = document.getElementById('color-input2');
     input_couleur.value = couleur;
-    console.log(input_couleur.value);
+    input_couleur2.value = couleur;
+    console.log("input 2 ",input_couleur2.value);
 }
 function change(){
     var k=0;
@@ -53,8 +58,10 @@ function change(){
     if(document.querySelector('ul.slick3-dots').childNodes[k].className == "slick-active"){
             var couleur = document.getElementById('data-color').children[k].innerHTML;
             var input_couleur = document.getElementById('color-input');
+            var input_couleur2 = document.getElementById('color-input2');
             input_couleur.value = couleur;
-            console.log(input_couleur.value);
+            input_couleur2.value = couleur;
+            console.log("input 2 ",input_couleur2.value);
     }
     }
 }
@@ -91,12 +98,11 @@ function troc(){
 function charge(){
     let btn = document.querySelector('select#modele_cap');
     let btn2 = document.querySelector('select#intact');
-    btn.selectedIndex =0;
-    btn2.selectedIndex =0;
     let index= btn.selectedIndex
-    btn.options[index].innerText="Sélectionner";
-    btn2.options[index].innerText="Sélectionner";
-    console.log(btn.selectedIndex)
+    btn.value="Sélectionner";
+    btn2.value="Sélectionner";
+    console.log("selected ",btn.selectedIndex)
+    console.log("value ",btn.value)
 }
 charge();
 function initialise(){
@@ -141,6 +147,7 @@ function initialise(){
         non4.classList.add('btn-light');
     }
 }
+
 function trocChoix(){
     let box = document.querySelector("div#question1");
     let box2 = document.querySelector("div#question2");
@@ -151,18 +158,25 @@ function trocChoix(){
     let serie = document.querySelector("div#serie");
     var price = document.getElementById('price');
     btn = document.querySelector('button#troc');
+    let btnx = document.querySelector('select#modele_cap');
     btn.addEventListener('click', function () {
     charge();
     initialise();
     console.log(price);
     if ( (price.innerText !="Prix" ) && (box.classList.contains('hidden'))){
+        charge();
         console.log("BON");
         box.classList.remove('hidden');
         setTimeout(function () {
         box.classList.remove('visuallyhidden');
         }, 20);
+        box.classList.remove('visuallyhidden');
+        console.log(btnx);
+
+        
     } else {
         console.log("MAUVAIS");
+        charge();
         if (!(serie.classList.contains('hidden'))){
             serie.classList.add('visuallyhidden');    
             serie.addEventListener('transitionend', function(e) {
@@ -479,6 +493,7 @@ function DisplaySerie(inp){
         setTimeout(function () {
         box.classList.remove('visuallyhidden');
         }, 10);
+        box.classList.remove('visuallyhidden');
         
     }else if (input.value == "NON"){
         if (!(box.classList.contains("hidden"))){
@@ -495,6 +510,7 @@ function DisplaySerie(inp){
         setTimeout(function () {
         q4.classList.remove('visuallyhidden');
         }, 10);
+        q4.classList.remove('visuallyhidden');
     }else{
         q4.classList.add('visuallyhidden');    
         q4.addEventListener('transitionend', function(e) {

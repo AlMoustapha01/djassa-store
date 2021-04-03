@@ -59,7 +59,7 @@
 
                     <!-- Icon header -->
                     <div class="wrap-icon-header flex-w flex-r-m h-full">
-                       {% if val%}
+                       {% if val != None%}
                         <div class="icon-header-item cl2 hov-cli trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"  data-notify="{{val}}">
                             
                                 <a href="/panier" class="active-menu text-dark position-relative d-inline-flex">
@@ -108,6 +108,7 @@
 
             <!-- Icon header -->
             <div class="wrap-icon-header flex-w flex-r-m h-full m-r-15">
+                {% if val %}
                 <div class="icon-header-item cl2 hov-cli trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{val}}">
                             
                                 <a href="/panier" class="text-dark position-relative d-inline-flex">
@@ -118,6 +119,18 @@
                             
 
                 </div>
+                {% else %}
+                <div class="icon-header-item cl2 hov-cli trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart">
+                            
+                                <a href="/panier" class="text-dark position-relative d-inline-flex">
+                                <i class="zmdi zmdi-shopping-cart"></i>
+                                
+                            </a>
+                            
+                            
+
+                </div>
+                {% endif %}
                 <div class="icon-header-item cl2 hov-cli trans-04 p-l-22 p-r-11">
                     <a href="/favoris" class="text-dark"><i class="zmdi zmdi-favorite"></i></a>
 
