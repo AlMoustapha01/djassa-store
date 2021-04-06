@@ -16,6 +16,10 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.functions import Lower
 from django.db.models import Count
 
+
+def index(request):
+    return render(request,'djassa-store/index.html')
+    
 def achat_view(request):
     marque = list(Marque.objects.all())
     modele_phone = list(ModelePhone.objects.order_by(Lower('name').asc()))
@@ -99,6 +103,7 @@ def detail_view(request,id_modele):
                     troc.ecran_camera = request.POST['ecran_camera']
                     troc.imei = request.POST['imei']
                     troc.save()
+                print(troc)
                 return redirect("/panier")
 
         else:

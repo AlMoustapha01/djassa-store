@@ -7,6 +7,8 @@ from .models.panier_model import *
 from .models.color_phone_model import ColorPhone
 from .models.price_phone_model import PricePhone
 from .models.troc_model import Troc
+from .models.panne_model import Panne
+from .models.rdv_model import Rdv
 from .models.client_model import *
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
@@ -29,8 +31,8 @@ admin.site.register(Panier)
 admin.site.register(ColorPhone)
 admin.site.register(PricePhone)
 admin.site.register(Troc)
-
-
+admin.site.register(Panne)
+admin.site.register(Rdv)
 # Re-register UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

@@ -4,6 +4,7 @@ from achat.models.marque_model import Marque
 from achat.models.price_phone_model import PricePhone
 from achat.models.color_phone_model import ColorPhone
 from achat.models.panier_model import Panier
+from achat.models.troc_model import Troc
 from django.contrib.auth.models import User
 
 from achat.models.client_model import Client
@@ -78,7 +79,8 @@ def panier_view(request):
     TOTAL =0
     type = Panier.objects.all().values('type').annotate(total=Count('type'))
     print(type)
-    ALL =[]
+    ACHAT =[]
+    TROC = []
     
     en_cours= len(Panier.objects.filter(id_users=request.user).filter(status=True))
     for elt in panier:
@@ -87,20 +89,38 @@ def panier_view(request):
         color = ColorPhone.objects.get(pk=price.id_color.id)
         modele = ModelePhone.objects.get(pk=color.id_modele.id)
         total = prix*int(elt.quantite)
-        ALL.append({
-            'id':elt.id,
-            'photo': color.image,
-            'couleur':color.couleur,
-            'modele': modele.name,
-            'capacite':price.capacite,
-            'prix':price.prix,
-            'total':total,
-            'pchiffre':prix,
-            'quantite':elt.quantite,
-            'type':elt.type,
-            'status':elt.status
+        if elt.type == "ACHAT":
+            ACHAT.append({
+                'id':elt.id,
+                'photo': color.image,
+                'couleur':color.couleur,
+                'modele': modele.name,
+                'capacite':price.capacite,
+                'prix':price.prix,
+                'total':total,
+                'pchiffre':prix,
+                'quantite':elt.quantite,
+                'status':elt.status
 
-        })
+            })
+        else:
+            troc = Troc.objects.get(panier=elt.id)
+            TROC.append(
+                {
+                    'id':elt.id,
+                    'photo': color.image,
+                    'couleur':color.couleur,
+                    'modele': modele.name,
+                    'capacite':price.capacite,
+                    'prix':price.prix,
+                    'total':total,
+                    'pchiffre':prix,
+                    'quantite':elt.quantite,
+                    'status':elt.status,
+                    'phone': troc.phone,
+                    'cap' : troc.capacite
+                }
+            )
         TOTAL= TOTAL + total
     if request.POST:
         paniers = Panier.objects.get(pk=request.POST['panier'])
@@ -116,4 +136,4 @@ def panier_view(request):
     print(TOTAL)
     
 
-    return render(request, "djassa-store/panier.html",{"panier":ALL,"total":TOTAL,"type":type,"count":count,"en_cours":en_cours})
+    return render(request, "djassa-store/panier.html",{"achat":ACHAT,"troc":TROC,"total":TOTAL,"type":type,"count":count,"en_cours":en_cours})

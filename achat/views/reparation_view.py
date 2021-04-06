@@ -5,6 +5,8 @@ from achat.models.marque_model import Marque
 from achat.models.price_phone_model import PricePhone
 from achat.models.color_phone_model import ColorPhone
 from achat.models.panier_model import Panier
+from achat.models.panne_model import Panne
+from achat.models.rdv_model import Rdv
 from rest_framework.response import Response
 from rest_framework import mixins,views
 from rest_framework import generics
@@ -40,5 +42,39 @@ def detail_reparation_view(request,id_modele):
     price = list(PricePhone.objects.filter(id_color=phone1))
     print(price)
     modele = ModelePhone.objects.get(id=id_modele)
+    panne = Panne.objects.filter(id_modele=id_modele)
     
-    return render(request,'djassa-store/product-detail.html',{'phone':phone,'modele':modele,'prix':price})
+    return render(request,'djassa-store/product-detail-repa.html',{'phone':phone,'modele':modele,'panne':panne})
+
+def rdv_view(request):
+    if request.POST:
+        if request.user.is_authenticated :
+            rdv = Rdv()
+            panne = ""
+            if 'ecran' in request.POST:
+                panne = panne + request.POST['ecran']+ "\n"
+            if 'vitre_arriere' in request.POST:
+                panne = panne + request.POST['vitre_arriere'] + "\n"
+            if 'camera' in request.POST:
+                panne = panne + request.POST['camera'] + "\n"
+            if 'batterie' in request.POST:
+                panne = panne + request.POST['batterie'] + "\n"
+            if 'connectique' in request.POST:
+                panne = panne + request.POST['connectique'] + "\n"
+            if 'haut_parleur' in request.POST:
+                panne = panne + request.POST['haut_parleur'] + "\n"
+            if 'autre' in request.POST: 
+                panne = panne + request.POST['autre']
+
+            rdv.panne= panne
+            rdv.id_users = request.user
+            rdv.modele = request.POST['modele']
+            rdv.description_panne = request.POST['modele']
+            rdv.date_rdv = request.POST['date']
+            rdv.heure_rdv = request.POST['heure']
+            rdv.save()
+            success = "Votre rendez-vous a bien été pris en compte"
+            return render(request,'djassa-store/envoyer-phone.html' , {"success":success})
+        else:
+            return redirect('/login')
+    return render(request,'djassa-store/envoyer-phone.html')

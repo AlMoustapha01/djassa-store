@@ -42,26 +42,24 @@
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
 						<div class="wrap-table-shopping-cart">
-							{% for types in type%}
-							<h2>{{types.type}}</h2>
+							<h1>ACHAT </h2>
 							<table class="table-shopping-cart">
 								<tr class="table_head">
 									<th class="column-1" style="text-align: center; vertical-align: middle;">Produit</th>
-									<th class="column-2" style="text-align: center; vertical-align: middle;"></th>
 									<th class="column-2" style="text-align: center; vertical-align: middle;">Capacité</th>
 									<th class="column-3" style="text-align: center; vertical-align: middle;">  Prix</th>
 									<th class="column-4" style="text-align: center; vertical-align: middle;">Quantité</th>
 									<th class="column-5" style="text-align: center; vertical-align: middle;">Total</th>
 									<th class="column-6" style="text-align: center; vertical-align: middle;">  Status    </th>
 								</tr>
-								{% for elt in panier%}
+								{% for elt in achat%}
 								<tr class="table_row" style="text-align: center; vertical-align: middle;">
 									<td class="column-1">
 										<div class="how-itemcart1">
 											<img src="media/{{elt.photo}}" alt="IMG">
 										</div>
+										{{elt.modele}}
 									</td>
-									<td class="column-2" style="text-align: center; vertical-align: middle;">{{elt.modele}}</td>
 									<td class="column-3" style="text-align: center; vertical-align: middle;">{{elt.capacite}}</td>
 									<td class="column-4" style="text-align: center; vertical-align: middle;">{{elt.prix}} FCFA</td>
 									<td class="column-5" style="text-align: center; vertical-align: middle;">
@@ -104,7 +102,55 @@
 								{% endfor %}
 								
 							</table>
-							{% endfor %}
+
+						</div>
+												<div class="wrap-table-shopping-cart">
+							<h1>TROC </h1>
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1" style="text-align: center; vertical-align: middle;">Produit</th>
+									<th class="column-3" style="text-align: center; vertical-align: middle;">Votre téléphone</th>
+									<th class="column-5" style="text-align: center; vertical-align: middle;">Total</th>
+									<th class="column-6" style="text-align: center; vertical-align: middle;">  Status    </th>
+								</tr>
+								{% for elt in troc%}
+								<tr class="table_row" style="text-align: center; vertical-align: middle;">
+									<td class="column-1">
+										<div class="how-itemcart1">
+											<img src="media/{{elt.photo}}" alt="IMG">
+										</div>
+										{{elt.modele}} / {{elt.capacite}}
+									</td>
+									<td class="column-4" style="text-align: center; vertical-align: middle;">{{elt.phone}} / {{elt.cap}}</td>
+									
+									<td id="total" class="column-6" style="text-align: center; vertical-align: middle;">Estimation du prix en cours...</td>
+									{% if elt.status%}
+									<td class="column-6" >
+									<form method="POST" action="">
+											{% csrf_token %}
+											<input type="number" value="{{elt.id}}" style="display:none;" name="panier">
+											<input type="bool" value="{{elt.status}}" style="display:none;" name="status">
+											<input id="quant" type="number" value="{{elt.quantite}}" style="display:none;" name="quant">
+											<button type="submit" class="btn btn-success">en cours</button>
+									</form>
+									</td>
+									{% else %}
+									<td class="column-6" >
+									<form method="POST" action="">
+										{% csrf_token %}
+										<input type="number" value="{{elt.id}}" style="display:none;" name="panier">
+										<input type="bool" style="display:none;" value="{{elt.status}}" name="status">
+										<input id="quant" type="number" value="{{elt.quantite}}" style="display:none;" name="quant">
+										<button type="submit" class="btn btn-danger " disabled>commander</button>
+									</form>
+									</td>
+									{% endif %}
+									<p id="total" style="display:none;">{{elt.pchiffre}}</p>
+								</tr>
+								{% endfor %}
+								
+							</table>
+
 						</div>
 
 						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">

@@ -8,3 +8,4 @@ from .price_phone_model import PricePhone
 from .client_model import Client
 from .panne_model import Panne
 from .troc_model import Troc
+from .rdv_model import Rdv
