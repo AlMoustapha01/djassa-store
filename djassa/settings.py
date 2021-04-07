@@ -27,8 +27,7 @@ SECRET_KEY = '1va&f$^_h=g4dj42(5q=x$_9ztg)3g_o0i!i@_1%mqfrr9a*#='
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "127.0.0.1",
-    ".herokuapp.com",
+    "*"
 ]
 
 CSRF_COOKIE_SECURE= True
