@@ -21,17 +21,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = '1va&f$^_h=g4dj42(5q=x$_9ztg)3g_o0i!i@_1%mqfrr9a*#='
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    'https://djassa-stores.herokuapp.com/'
 ]
 
 CSRF_COOKIE_SECURE= True
-
 
 SESSION_COOKIE_SECURE = True
 # Application definition
@@ -92,8 +92,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djassa',
         #'NAME': 'djassa-store',
-        'USER': config('USER_DJASSA'),
-        'PASSWORD': config('PASSWORD_DJASSA'),
+        'USER': 'doumbia',
+        'PASSWORD': '12345678',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
