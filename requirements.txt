@@ -12,3 +12,5 @@ Werkzeug==1.0.1
 djangorestframework==3.12.4
 markdown==3.3.4
 django-filter==2.4.0
+python-memcached==1.59
+python-decouple==3.4
