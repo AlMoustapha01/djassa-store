@@ -3,7 +3,7 @@
 <html lang="fr">
 
 <head>
-    <title>Connexion | DJASSA-STORE</title>
+    <title>Réinitialisation de mot de passe | DJASSA-STORE</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->	
@@ -42,51 +42,30 @@
     <!-- Title page -->
    <br><br> <section class="bg-img1 txt-center p-lr-15 p-tb-92">
         <h2 class="ltext-105 cl0 txt-center">
-            CONNEXION
+            MOT DE PASSE OUBLIÉ
         </h2>
     </section>
 
 
     <!-- Content page -->
-    <section class="bg0 p-t-23 p-b-10">
-        <div class="container">
-            <div class="flex-w flex-tr">
-                <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+    <section class="bg0 p-t-23 p-b-10 txt-center d-flex justify-content-center">
+        <div class="container d-flex justify-content-center">
+                <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md d-flex justify-content-center">
                     <form method="POST">
                         <h4 class="mtext-105 cl2 txt-center p-b-30">
-                            Connectez-vous
+                            Entrez votre email
                         </h4>
                         {% csrf_token %}
                         <div class="bor8 m-b-20 how-pos4-parent">
                             <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" required placeholder="Votre adresse Email">
                             <p  class="how-pos4 pointer-none" ><box-icon name='envelope' animation='flashing'></box-icon> </p>
                         </div>
-                        <div class="bor8 m-b-20 how-pos4-parent">
-                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="password" required minlength="8" placeholder="Votre mot de passe">
-                            <p class="how-pos4 pointer-none"><box-icon name='lock' animation='flashing'></box-icon> </p>
-                        </div>
                         
                         <button class="flex-c-m stext-101 cl0 size-121 bg2 bor1 hov-btn1 p-lr-15 trans-04 pointer">
-							CONNEXION
+							ENVOYER
 						</button>
                     </form>
-                    <p class="stext-115 cl6 size-213 p-t-18">
-                                <a href="/mdp">mot de passe oublié ?</a>
-                    </p>
                 </div>
-
-                <div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md">
-                    <div class="flex-w w-full p-b-42">
-
-                        <div class="size-212 p-t-2">
-
-                            <p class="stext-115 cl6 size-213 p-t-18">
-                                Vous n'avez pas de compte ? <a href="/register">Inscrivez-vous !</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -246,7 +225,7 @@
         icon: 'error',
         title: 'Oops...',
         position:'center',
-        text: 'Email ou mot de passe incorrect',
+        text: 'Ce compte est inexistant',
         })
         </script>
     {% endif %}

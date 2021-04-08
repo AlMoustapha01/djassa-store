@@ -13,7 +13,10 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.functions import Lower
 from django.db.models import Count
 from django.contrib.auth.password_validation import CommonPasswordValidator
-
+from django.core.mail import send_mail,EmailMultiAlternatives,EmailMessage
+from django.template.loader import get_template
+from django.template import Context
+from django.contrib.sites.shortcuts import get_current_site
 def login_view(request): 
     # create a dictionary to pass
     if (request.POST):
@@ -66,6 +69,29 @@ def register_view(request):
             return redirect('/login')
     # return response with template and context 
     return render(request, "djassa-store/inscription.html") 
+
+def mdp_oublie_view(request):
+    error = None
+    current_site = get_current_site(request)
+    htmly = get_template('djassa-store/message.html')
+    link = current_site.domain + '/mdp'
+    lien = dict({ 'lien':  link })
+
+    if request.POST:
+        receiver = request.POST['email']
+        try:
+            users = User.objects.get(email=receiver)
+        except:
+            error = "Ce compte est inexistant"
+        sender = "doumbiaalmoustapha@gmail.com"
+        subject, from_email, to = 'mot de passe oublié', sender,receiver
+        html_content = htmly.render(lien)
+        msg = EmailMessage(subject, html_content, from_email, [to])
+        msg.content_subtype = "html"
+        msg.send()
+
+  
+    return render(request,"djassa-store/mdp_oublie.html", {'error':error})
 
 def total(prix,quantity):
     montant = int(prix.replace(' ',''))
