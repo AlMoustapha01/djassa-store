@@ -130,7 +130,7 @@
                                                 {% csrf_token %}
                                                 <input type="number" name="modele" value={{modele.id}} style="display:none;"></input>
                                                 <input id="color-input" type="text" name="couleur" value="" style="display:none;"></input>
-                                                <input id="capacite1" type="text" name="capacite" value="" required pattern="64 Go|128 Go|256 Go|512 Go" style="display:none;"></input>
+                                                <input id="capacite1" type="text" name="capacite" value="" required pattern="64 Go|128 Gostyle="display:none;" |256 Go|512 Go" style="display:none;"></input>
                                                 <input id="type-action" type="text" name="action" value="ACHETER" style="display:none;"></input>
                                                 <button type="submit" id="acheter" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
                                                 
@@ -150,7 +150,7 @@
 											<form method="POST">
 												<input type="number" name="modele" value={{modele.id}} style="display:none;"></input>
                                                 <input id="color-input2" type="text" name="couleur" value="" style="display:none;"></input>
-                                                <input id="capacite2" type="text" name="capacite" value="" required pattern="64 Go|128 Go|256 Go|512 Go" ></input>
+                                                <input id="capacite2" type="text" name="capacite" value="" required pattern="64 Go|128 Go|256 Go|512 Go" style="display:none;"></input>
                                                 <input id="type-action" type="text" name="action" value="TROQUER" style="display:none;"></input>
 											{% csrf_token %}
                                             <div id="question" class="box p-5 visuallyhidden hidden">

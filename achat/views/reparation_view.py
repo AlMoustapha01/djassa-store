@@ -31,6 +31,7 @@ def reparation_view(request):
     iphone_7 = list(ModelePhone.objects.filter(name__contains='7'))
     iphone_6 = list(ModelePhone.objects.filter(name__contains='6'))
     print('{} {} {} {}'.format(marque,iphone_11,iphone_8,iphone_7))
+    count = None
     if request.user.is_authenticated:
         panier = Panier.objects.filter(id_users=request.user)
         count = len(panier)

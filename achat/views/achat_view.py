@@ -18,7 +18,11 @@ from django.db.models import Count
 
 
 def index(request):
-    return render(request,'djassa-store/index.html')
+    if request.user.is_authenticated:
+        profile = True
+    else:
+        profile = False
+    return render(request,'djassa-store/index.html',{'profile':profile})
     
 def achat_view(request):
     marque = list(Marque.objects.all())
@@ -35,10 +39,12 @@ def achat_view(request):
     iphone_6 = list(ModelePhone.objects.filter(name__contains='6'))
     print('{} {} {} {}'.format(marque,iphone_11,iphone_8,iphone_7))
     count= None
+    profile = False
     if request.user.is_authenticated:
         panier = Panier.objects.filter(id_users=request.user)
         count = len(panier)
-    return render (request,'djassa-store/achat.html',{'marque':marque,'modele_phone':modele_phone,'count':count})
+        profile=True
+    return render (request,'djassa-store/achat.html',{'marque':marque,'modele_phone':modele_phone,'count':count,'profile':profile})
 
 def detail_view(request,id_modele):
     phone = list(ColorPhone.objects.filter(id_modele=id_modele))

@@ -17,6 +17,7 @@ from django.core.mail import send_mail,EmailMultiAlternatives,EmailMessage
 from django.template.loader import get_template
 from django.template import Context
 from django.contrib.sites.shortcuts import get_current_site
+
 def login_view(request): 
     # create a dictionary to pass
     if (request.POST):
@@ -74,8 +75,9 @@ def mdp_oublie_view(request):
     error = None
     current_site = get_current_site(request)
     htmly = get_template('djassa-store/message.html')
-    link = current_site.domain + '/mdp'
+    link = 'https://' +current_site.domain + '/mdp'
     lien = dict({ 'lien':  link })
+    print(lien)
 
     if request.POST:
         receiver = request.POST['email']
@@ -89,6 +91,7 @@ def mdp_oublie_view(request):
         msg = EmailMessage(subject, html_content, from_email, [to])
         msg.content_subtype = "html"
         msg.send()
+        print(msg)
 
   
     return render(request,"djassa-store/mdp_oublie.html", {'error':error})

@@ -7,6 +7,7 @@ class ModelePhone(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     image = models.ImageField(null=True)
     id_marque = models.ForeignKey(Marque, models.DO_NOTHING, db_column='id_marque')
+    description = models.TextField(blank=True, null=True)
     troc= models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)
     updated_at = models.DateTimeField(blank=True, null=True)

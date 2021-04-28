@@ -9,6 +9,7 @@ from .views.users_view import login_view,register_view,panier_view,logout_view,m
 from .views.reparation_view import reparation_view,detail_reparation_view,rdv_view
 urlpatterns = [ 
     path('index',index),
+    path('',index),
     path('achat', achat_view),
     path('detail/<int:id_modele>',detail_view),
     path('login',login_view),

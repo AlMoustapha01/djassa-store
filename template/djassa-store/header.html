@@ -1,4 +1,7 @@
 {% load static %}
+<style>
+
+</style>
 <!-- Header -->
     <header>
         <!-- Header desktop -->
@@ -29,9 +32,15 @@
                     <!-- Menu desktop -->
                     <div class="menu-desktop">
                         <ul class="main-menu">
+                            {% if active == "index" %}
+                            <li class="active-menu">
+                                <a href="/index">ACCUEIL</a>
+                            </li>
+                            {% else %}
                             <li>
                                 <a href="/index">ACCUEIL</a>
                             </li>
+                            {% endif %}
                             {% if active == "achat" %}
                             <li class="active-menu">
                                 <a href="/achat">ACHAT</a>
@@ -59,6 +68,7 @@
 
                     <!-- Icon header -->
                     <div class="wrap-icon-header flex-w flex-r-m h-full">
+                        
                        {% if val != None%}
                         <div class="icon-header-item cl2 hov-cli trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"  data-notify="{{val}}">
                             
@@ -87,7 +97,7 @@
                             <a href="/favoris" class="text-dark"><h1><i class="zmdi zmdi-favorite"></i></h1></a>
 
                         </div>
-                        {% if user%}
+                        {% if icon%}
                         <div class="flex-c-m h-full p-lr-30 bor6">
                             <a href="/logout" class="text-dark"><h1><i class="fa fa-user-circle-o" aria-hidden="true"></i></h1></a>
 
